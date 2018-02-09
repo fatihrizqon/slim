@@ -1,10 +1,7 @@
 <?php
-require __DIR__ . '/../vendor/autoload.php';
 
-$app = new Slim\App;
-
-$app->get('/', function(){
-    return 'Hello';
-});
+require '../bootstrap/app.php';
+require '../bootstrap/container.php';
+require '../routes/web.php';
 
 $app->run();
