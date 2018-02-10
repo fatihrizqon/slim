@@ -1,1 +1,7 @@
-Welcome to MVC Slim Microframework
+{% extends 'home/home.twig' %}
+{% block content %}
+  <form action="{{ path_for('update') }}" method="post">
+    <button type="submit">Update</button>
+    {{ csrf_field() | raw }}
+  </form>
+{% endblock %}

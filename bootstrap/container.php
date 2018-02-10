@@ -1,7 +1,12 @@
 <?php
-
-// Get container
+/* Get container */
 $container = $app->getContainer();
+
+/* Register CSRF Protection with container */
+$container['csrf'] = function ($c) {
+    return new \Slim\Csrf\Guard;
+};
+$app->add($container->get('csrf'));
 
 /* Register View Component to the Container */
 $container['view'] = function ($container){
@@ -12,7 +17,7 @@ $container['view'] = function ($container){
     // Instantiate and add Slim specific extension
     $basePath = rtrim(str_ireplace('index.php', '', $container['request']->getUri()->getBasePath()), '/');
     $view->addExtension(new Slim\Views\TwigExtension($container['router'], $basePath));
-
+    $view->addExtension(new App\Views\CsrfExtension($container['csrf']));
     return $view;
 };
 
